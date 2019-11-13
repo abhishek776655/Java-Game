@@ -1,19 +1,21 @@
 package com.game.src.main;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-public class player {
+public class player implements EntityA {
 	private double x;
 	private double y;
 	private double velX=0;
 	private double velY=0;
 	private BufferedImage Player;
-	player(double x,double y,Game game){
+	private  texture tex;
+	player(double x,double y,texture tex){
 		this.x=x;
 		this.y=y;
-		spriteSheet ss=new spriteSheet(game.getSpritesheet());
-		Player = ss.grabImage(1, 1, 32, 32);
+		this.tex = tex;
+		
 	}
 	public void tick() {
 	x=x+velX;
@@ -31,7 +33,7 @@ public class player {
 
 	}
 	public void render(Graphics g) {
-		g.drawImage(Player, (int)x, (int)y, null);
+		g.drawImage(tex.player, (int)x, (int)y, null);
 	}
 		public double getX() {
 			return x;
@@ -50,5 +52,19 @@ public class player {
 		}
 		public void setVelY(double velY) {
 			this.velY=velY;
+		}
+		@Override
+		public double getx() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+		@Override
+		public double gety() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+		public Rectangle getBounds() {
+			
+			return new Rectangle((int)x,(int)y,32,32) ;
 		}
 }

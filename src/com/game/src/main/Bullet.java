@@ -1,23 +1,48 @@
 package com.game.src.main;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-public class Bullet {
+public class Bullet implements EntityA {
 private double x;
 private double y;
 BufferedImage image;
-    public Bullet(double x,double y,Game game) {
+private texture tex;
+Game game;
+    public Bullet(double x,double y,texture tex,Game game) {
     	this.x=x;
     	this.y=y;
-    	spriteSheet ss = new spriteSheet(game.getBeamSS());
-    	image = ss.grabImage(1, 1, 32, 32);
+    	this.tex=tex;
+    	this.game=game;
+    	
+    	
     }
     public void tick()
-    {x=x+5;
+    {y=y-5;
+    if(physics.Collision(this,game.eb)) {
+    	System.out.println("detected");
+    }
     	
     }
     public void render(Graphics g) {
-    	g.drawImage(image,(int)x,(int)y,null);
+    	g.drawImage(tex.missile,(int)x,(int)y,null);
     }
+    public double getY() {
+		return y;
+	}
+	@Override
+	public double getx() {
+		// TODO Auto-generated method stub
+		return x;
+	}
+	@Override
+	public double gety() {
+		// TODO Auto-generated method stub
+		return y;
+	}
+	public Rectangle getBounds() {
+		
+		return new Rectangle((int)x,(int)y,32,32) ;
+	}
 }
